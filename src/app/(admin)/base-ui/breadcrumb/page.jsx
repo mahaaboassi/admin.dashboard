@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import { Card, CardBody, CardHeader, CardTitle, Col, Row } from 'react-bootstrap';
 export const metadata = {
-  title: 'Breadcrumb | Taplox - Responsive Admin Dashboard Template'
+  title: 'Breadcrumb | Foreshore - Admin Dashboard '
 };
 const DefaultBreadcrumb = () => {
   return <>

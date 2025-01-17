@@ -14,7 +14,7 @@ import small3 from '@/assets/images/small/img-3.jpg';
 import IconifyIcon from '@/components/wrapper/IconifyIcon';
 import { Card, CardBody, CardHeader, CardTitle, Col, Row } from 'react-bootstrap';
 export const metadata = {
-  title: 'Avatar | Taplox - Responsive Admin Dashboard Template'
+  title: 'Avatar | Foreshore - Admin Dashboard '
 };
 const BasicAvatar = () => {
   return <>

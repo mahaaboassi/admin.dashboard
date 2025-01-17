@@ -1,14 +1,48 @@
-import { NextResponse } from 'next/server';
-export function middleware(request) {
-  const response = NextResponse.next();
-  if (request.nextUrl.pathname === '/') {
-    return NextResponse.redirect(new URL('/dashboards', request.url));
+import { NextResponse } from 'next/server'
+import  { NextRequest } from 'next/server'
+import { getToken } from 'next-auth/jwt'
+import { log } from 'console'
+import { checkTokenOnServer } from './lib/checkToken'
+
+export async function middleware(request) {
+
+  // Use next-auth's getToken for secure token retrieval
+  const token = await  checkTokenOnServer()
+
+  // Define protected and public routes
+  const protectedRoutes = ['/dashboards', '/profile']
+  const authRoutes = ['/auth/sign-in']
+
+  const { pathname } = request.nextUrl
+
+  // Case 1: Redirect unauthenticated users from protected routes to sign-in
+  if (!token && protectedRoutes.some(route => pathname.startsWith(route))) {
+    return NextResponse.redirect(new URL('/auth/sign-in', request.url))
   }
-  return response;
+
+  // Case 2: Redirect authenticated users away from auth routes
+  if (token && authRoutes.includes(pathname)) {
+    console.log("here");
+    
+    return NextResponse.redirect(new URL('/dashboards', request.url))
+  }
+
+  // Case 3: Redirect root path based on authentication status
+  if (pathname === '/') {
+    return token 
+      ? NextResponse.redirect(new URL('/dashboards', request.url))
+      : NextResponse.redirect(new URL('/auth/sign-in', request.url))
+  }
+
+  return NextResponse.next()
 }
 
-// See "Matching Paths" below to learn more
+// Matching paths for middleware
 export const config = {
-  matcher: '/'
-};
-export { default } from 'next-auth/middleware';
+  matcher: [
+    '/', 
+    '/dashboards/:path*', 
+    '/profile/:path*', 
+    '/auth/:path*'
+  ]
+}

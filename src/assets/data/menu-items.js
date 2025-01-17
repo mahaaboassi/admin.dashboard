@@ -58,6 +58,50 @@ export const MENU_ITEMS = [{
     parentKey: 'error'
   }]
 },
+// ====================Basic Information===============
+{
+  key: 'basic-info',
+  label: 'Basic info',
+  isTitle: true
+}, 
+// ====================user===============
+{
+  key: 'user',
+  label: 'Users',
+  icon: "solar:user-linear",
+  children: [{
+    key: 'list-users',
+    label: 'List Users',
+    url: '/user/list',
+    parentKey: 'user'
+  },{
+    key: 'add-users',
+    label: 'Add User',
+    url: '/user/add',
+    parentKey: 'user'
+  }]
+},
+{
+  key: 'features',
+  label: 'Features',
+  icon: "solar:database-outline",
+  children: [{
+    key: 'list-features',
+    label: 'List Features',
+    url: '/features/list',
+    parentKey: 'features'
+  },{
+    key: 'add-feature',
+    label: 'Add Feature',
+    url: '/features/add',
+    parentKey: 'features'
+  },{
+    key: 'add-sub-feature',
+    label: 'Add Sub Feature',
+    url: '/features/addSub',
+    parentKey: 'features'
+  }]
+},
 // ====================base-ui===============
 {
   key: 'ui-kit',

@@ -1,8 +1,12 @@
 import avatar1 from '@/assets/images/users/avatar-1.jpg';
 import IconifyIcon from '@/components/wrapper/IconifyIcon';
 import Image from 'next/image';
+
 import { Dropdown, DropdownHeader, DropdownItem, DropdownMenu, DropdownToggle } from 'react-bootstrap';
 const ProfileDropdown = () => {
+  const handleLogout = ()=>{
+    
+  }
   return <Dropdown className=" topbar-item">
       <DropdownToggle type="button" className="topbar-button content-none" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span className="d-flex align-items-center">
@@ -17,10 +21,10 @@ const ProfileDropdown = () => {
           <IconifyIcon icon="solar:user-outline" className="align-middle me-2 fs-18" />
           <span className="align-middle">My Account</span>
         </DropdownItem>
-        <DropdownItem href="">
+        {/* <DropdownItem href="">
           <IconifyIcon icon="solar:wallet-outline" className="align-middle me-2 fs-18" />
           <span className="align-middle">Pricing</span>
-        </DropdownItem>
+        </DropdownItem> */}
         <DropdownItem href="">
           <IconifyIcon icon="solar:help-outline" className="align-middle me-2 fs-18" />
           <span className="align-middle">Help</span>
@@ -30,7 +34,7 @@ const ProfileDropdown = () => {
           <span className="align-middle">Lock screen</span>
         </DropdownItem>
         <div className="dropdown-divider my-1" />
-        <DropdownItem className=" text-danger" href="/auth/sign-in">
+        <DropdownItem className=" text-danger" type="button" >
           <IconifyIcon icon="solar:logout-3-outline" className="align-middle me-2 fs-18" />
           <span className="align-middle">Logout</span>
         </DropdownItem>

@@ -8,7 +8,7 @@ import small4 from '@/assets/images/small/img-4.jpg';
 import small5 from '@/assets/images/small/img-5.jpg';
 import { Card, CardBody, CardTitle, Col, Row } from 'react-bootstrap';
 export const metadata = {
-  title: 'Cards | Taplox - Responsive Admin Dashboard Template'
+  title: 'Cards | foreshore - Admin Dashboard '
 };
 const CardTitle1 = () => {
   return <>
