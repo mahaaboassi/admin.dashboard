@@ -594,6 +594,11 @@
     "@types/prop-types" "*"
     csstype "^3.0.2"
 
+"@types/trusted-types@^2.0.7":
+  version "2.0.7"
+  resolved "https://registry.npmjs.org/@types/trusted-types/-/trusted-types-2.0.7.tgz"
+  integrity sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==
+
 "@types/warning@^3.0.3":
   version "3.0.3"
   resolved "https://registry.npmjs.org/@types/warning/-/warning-3.0.3.tgz"
@@ -1156,6 +1161,13 @@ dom-helpers@^5.0.1, dom-helpers@^5.2.0, dom-helpers@^5.2.1:
   dependencies:
     "@babel/runtime" "^7.8.7"
     csstype "^3.0.2"
+
+dompurify@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.npmjs.org/dompurify/-/dompurify-3.2.3.tgz"
+  integrity sha512-U1U5Hzc2MO0oW3DF+G9qYN0aT7atAou4AgI0XjWz061nyBPbdxkfdhfy5uMgGn6+oLFCfn44ZGbdDqCzVmlOWA==
+  optionalDependencies:
+    "@types/trusted-types" "^2.0.7"
 
 emoji-regex@^9.2.2:
   version "9.2.2"

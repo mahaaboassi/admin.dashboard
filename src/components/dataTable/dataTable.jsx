@@ -2,7 +2,7 @@
 import React from "react";
 import Image from 'next/image';
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
-
+import { sanitize } from "dompurify";
 
 export default function DataTable( {data, columns}) {
   const table = useReactTable({

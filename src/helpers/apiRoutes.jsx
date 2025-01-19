@@ -13,6 +13,11 @@ export  const apiRoutes = {
         addFeature : `${Host}/admin/addFeature`,
         addSubFeature : `${Host}/admin/addSubFeature`,
     },
+    property : {
+        getAllProperties : `${Host}/admin/getAllProperties`,
+        addProperty : `${Host}/admin/addProperty`,
+        // addSubFeature : `${Host}/admin/addSubFeature`,
+    },
 
 }
 

@@ -102,6 +102,22 @@ export const MENU_ITEMS = [{
     parentKey: 'features'
   }]
 },
+{
+  key: 'properties',
+  label: 'Properties',
+  icon: "solar:home-linear",
+  children: [{
+    key: 'list-properties',
+    label: 'List Properties',
+    url: '/properties/list',
+    parentKey: 'properties'
+  },{
+    key: 'add-property',
+    label: 'Add Property',
+    url: '/properties/add',
+    parentKey: 'properties'
+  }]
+},
 // ====================base-ui===============
 {
   key: 'ui-kit',
