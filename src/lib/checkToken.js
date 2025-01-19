@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 
-export function checkTokenOnServer() {
+export async function checkTokenOnServer() {
   const cookieStore = cookies();
   const token = cookieStore.get("token"); // Get the 'token' cookie
 

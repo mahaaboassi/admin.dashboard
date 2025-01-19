@@ -10,6 +10,8 @@ export  const apiRoutes = {
     },
     feature : {
         getAllfeatures : `${Host}/admin/getAllFeatures`,
+        addFeature : `${Host}/admin/addFeature`,
+        addSubFeature : `${Host}/admin/addSubFeature`,
     },
 
 }

@@ -1,47 +1,25 @@
 "use client"
 import DataTable from "@/components/dataTable/dataTable"
 function DataTableCustom({data}) {
-    const columns = [
-        { accessorKey: "id", header: "ID" },
-        {
-          accessorKey: "file",
-          header: "Photo",
-          cell: ({ row }) => (
-            <img
-              src={row.original.file}
-              alt="User"
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: "50%",
-                objectFit: "cover",
-              }}
-            />
-          ),
-        },
-        { accessorKey: "name", header: "Name" },
-        { accessorKey: "email", header: "Email" },
-        { accessorKey: "role", header: "Role" },
-        { accessorKey: "country_dial", header: "Country Dial" },
-        { accessorKey: "phone_number", header: "Phone Number" },
-        {
-          accessorKey: "active",
-          header: "Active",
-          cell: ({ row }) => (
-            <span
-              style={{
-                padding: "5px 10px",
-                borderRadius: "10px",
-                color: "#fff",
-                backgroundColor: row.original.active ? "green" : "red",
-              }}
-            >
-              {row.original.active ? "Active" : "Inactive"}
-            </span>
-          ),
-        },
-        
-      ];
+  const bufferToString = (buffer) => {
+    return new TextDecoder().decode(new Uint8Array(buffer));
+};   const columns = [
+  { accessorKey: "id", header: "ID" },
+  // {
+  //   accessorKey: "file",
+  //   header: "Photo",
+  //   cell: ({ row }) => (<div dangerouslySetInnerHTML={{ __html: bufferToString(row.original.file.data)}} />
+  //   ),
+  // },
+  { accessorKey: "name_en", header: "Name In English" },
+  { accessorKey: "name_ar", header: "Name In Arabic" },
+  { accessorKey: "description_en", header: "Description In English" },
+  { accessorKey: "description_ar", header: "Description In Arabic" },
+  { accessorKey: "subFeatures", header: "Sub Features" },
+  { accessorKey: "addedBy", header: "Added By" },
+  
+];
+   
     return ( <>
     <DataTable data={data} columns={columns} />
     

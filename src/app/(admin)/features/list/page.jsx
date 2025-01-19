@@ -5,7 +5,9 @@ import Pagination from "@/components/dataTable/pagination";
 import { Card, CardBody, CardHeader, CardTitle, Col, Row } from "react-bootstrap";
 import Link from "next/link";
 import IconifyIcon from "@/components/wrapper/IconifyIcon";
-
+export const metadata = {
+  title: 'Features'
+};
 export default async function FeaturePage({ searchParams }) {
   const page = parseInt(searchParams?.page) || 1;
   const limit = parseInt(searchParams?.limit) || 5;
@@ -23,7 +25,8 @@ export default async function FeaturePage({ searchParams }) {
     description_en: element.description_en || "-",
     description_ar: element.description_ar || "-",
     subFeatures: element.subFeatures?.length || "",
-    file: element.photo?.url || "https://via.placeholder.com/40",
+    file: element.photo || "",
+    addedBy : element.added_by.email || ""
   }));
 
   const meta = result.data.meta;

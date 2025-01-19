@@ -2,17 +2,16 @@
 import { Helper } from "@/helpers/helper";
 import { apiRoutes } from "@/helpers/apiRoutes"
 
-export async function getFeatures(page=1,limit=5) {
-
+export async function addFeature(body) {
+    
     try{
         const {response,message} = await Helper({
-            url : apiRoutes.feature.getAllfeatures,
-            method : "GET",
-            params:{
-              page : page,
-              limit : limit
-            }
+            url : apiRoutes.feature.addFeature,
+            method : "POST",
+            body : body, 
+            hasToken : true
           })
+          console.log(response);
           if(response?.error ==0 ){
             
             return {

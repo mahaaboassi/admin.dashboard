@@ -3,23 +3,8 @@ import React from "react";
 import Image from 'next/image';
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 
-const columns = [
-    { accessorKey: "id", header: "ID" },
-    {
-      accessorKey: "file",
-      header: "Photo",
-      cell: ({ row }) => (
-        <Image src={row.original.file} width={50} height={50} alt="Feature" />
-      ),
-    },
-    { accessorKey: "name_en", header: "Name In English" },
-    { accessorKey: "name_ar", header: "Arabic Name In Arabic" },
-    { accessorKey: "description_en", header: "Description In English" },
-    { accessorKey: "description_ar", header: "Description In Arabic" },
-    { accessorKey: "subFeatures", header: "Sub Feauters" },
-    
-  ];
-export default function DataTable( {data,meta}) {
+
+export default function DataTable( {data, columns}) {
   const table = useReactTable({
     data,
     columns,

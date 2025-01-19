@@ -1,10 +1,11 @@
-
-const getToken = ()=>{
-    return localStorage.getItem("token") ? localStorage.getItem("token") : ""
-}
-
+"use server";
+import { cookies } from "next/headers";
+const getToken = () => {
+    const cookieStore = cookies();
+    const token = cookieStore.get("token");
+    return token.value || "";
+};
 export const  Helper =  async ({url, body , method ,signal, hasToken=false , params})=>{
-    // checkUserLogedIn()
     const isFormData = body instanceof FormData;
     try {
         const headers = isFormData ? {
@@ -12,7 +13,6 @@ export const  Helper =  async ({url, body , method ,signal, hasToken=false , par
             
         }: {
             "Content-Type": "application/json",
-            
         };
         if(hasToken)
             headers["Authorization"] = `Bearer ${getToken()}`
@@ -36,7 +36,6 @@ export const  Helper =  async ({url, body , method ,signal, hasToken=false , par
         
         const urlWithParams = new URL(url);
         urlWithParams.search = new URLSearchParams(params).toString();
-        console.log("jbjbj",new URLSearchParams(params).toString());
         // console.log("serach url",urlWithParams);
         
         // console.log('Fetching URL:', urlWithParams);

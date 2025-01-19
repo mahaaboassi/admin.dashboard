@@ -1,7 +1,4 @@
 import { NextResponse } from 'next/server'
-import  { NextRequest } from 'next/server'
-import { getToken } from 'next-auth/jwt'
-import { log } from 'console'
 import { checkTokenOnServer } from './lib/checkToken'
 
 export async function middleware(request) {
