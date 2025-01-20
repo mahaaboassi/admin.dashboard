@@ -1,4 +1,3 @@
-
 import { getProperties } from "@/lib/property/getProperties";
 import DataTableCustom from "./component/dataTableCustom";
 import Pagination from "@/components/dataTable/pagination";

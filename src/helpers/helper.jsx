@@ -10,9 +10,10 @@ export const  Helper =  async ({url, body , method ,signal, hasToken=false , par
     try {
         const headers = isFormData ? {
             // "Content-Type": "application/json",
-            
+            "cache" : "no-store" 
         }: {
-            "Content-Type": "application/json",
+            "Content-Type" : "application/json",
+            "cache" : "no-store" 
         };
         if(hasToken)
             headers["Authorization"] = `Bearer ${getToken()}`

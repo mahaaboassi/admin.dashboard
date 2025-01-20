@@ -20,9 +20,10 @@ const AddFeature = async ({searchParams}) => {
   if (!type.success) {
     return <p>Error: {type.message}</p>;
   }
+  
 
   const data_type = type.data.data
-
+  console.log("-----",data_type);
   // Get Users
   const user = await getUsers(page, limit );
   if (!user.success) {

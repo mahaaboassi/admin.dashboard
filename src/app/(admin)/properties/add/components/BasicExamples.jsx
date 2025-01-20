@@ -15,6 +15,8 @@ const BasicExamples = ({types, users , subFeatures}) => {
   const bufferToString = (buffer) => {
     return new TextDecoder().decode(new Uint8Array(buffer));
 };  
+
+
   const [error, setError] = useState(null);
   const route = useRouter()
   const [values, setValues]= useState({

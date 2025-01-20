@@ -12,7 +12,6 @@ export async function getUsers(page = 1, limit = 5) {
             },
             method : "GET",
           })
-          console.log(response);
           if(response?.error ==0 ){
             
             return {
