@@ -6,7 +6,7 @@ import Feedback from 'react-bootstrap/esm/Feedback';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
-import DropzoneFormInput from '@/components/dropZone/DropzoneFormInput';
+import DropzoneFormInput from '@/components/dropzone/DropzoneFormInput';
 import { addFeature } from "@/lib/feature/addFeatures"
 
 
