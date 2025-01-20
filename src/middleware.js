@@ -5,7 +5,6 @@ export async function middleware(request) {
 
   // Use next-auth's getToken for secure token retrieval
   const token = await  checkTokenOnServer()
-
   // Define protected and public routes
   const protectedRoutes = ['/dashboards', '/user/list', "/user/add",
     "/features/list","/features/add" , "/features/addSub",
