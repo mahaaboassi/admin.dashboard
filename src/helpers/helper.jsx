@@ -98,3 +98,6 @@ export const  Helper =  async ({url, body , method ,signal, hasToken=false , par
 
 
 
+const bufferToString = (buffer) => {
+    return new TextDecoder().decode(new Uint8Array(buffer));
+};  

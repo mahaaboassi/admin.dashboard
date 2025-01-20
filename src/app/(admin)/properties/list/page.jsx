@@ -31,8 +31,9 @@ export default async function FeaturePage({ searchParams }) {
     features: element.features?.length || "",
     furnishing : element.furnishing || "",
     ready : element.ready || "",
-    // file: element.photo || "",
-    addedBy : element.added_by.email || ""
+    file: element.files[0].url || "",
+    addedBy : element.added_by.email || "",
+    owner : element.owner.email || ""
   }));
 
   const meta = result.data.meta;

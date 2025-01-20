@@ -5,7 +5,6 @@ import { cookies } from "next/headers";
 export async function checkTokenOnServer() {
   const cookieStore = cookies();
   const token = cookieStore.get("token"); // Get the 'token' cookie
-
   if (token) {
     console.log("Token exists:", token.value);
     return token.value; // Return the token value

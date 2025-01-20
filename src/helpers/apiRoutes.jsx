@@ -12,11 +12,16 @@ export  const apiRoutes = {
         getAllfeatures : `${Host}/admin/getAllFeatures`,
         addFeature : `${Host}/admin/addFeature`,
         addSubFeature : `${Host}/admin/addSubFeature`,
+        getAllSubfeatures : `${Host}/admin/getAllSubFeatures`,
     },
     property : {
         getAllProperties : `${Host}/admin/getAllProperties`,
         addProperty : `${Host}/admin/addProperty`,
-        // addSubFeature : `${Host}/admin/addSubFeature`,
+      
+    },
+    type : {
+        getAllTypes : `${Host}/admin/getAllTypes`,
+        addType : `${Host}/admin/addtype`,
     },
 
 }

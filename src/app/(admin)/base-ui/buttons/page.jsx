@@ -248,6 +248,7 @@ const SizesButton = () => {
               <button type="button" className="btn btn-success btn-sm">
                 Small
               </button>
+              
             </div>
           </CardBody>
         </Card>

@@ -3,7 +3,8 @@ import DataTable from "@/components/dataTable/dataTable"
 function DataTableCustom({data}) {
   const bufferToString = (buffer) => {
     return new TextDecoder().decode(new Uint8Array(buffer));
-};   const columns = [
+};  
+ const columns = [
   { accessorKey: "id", header: "ID" },
   // {
   //   accessorKey: "file",

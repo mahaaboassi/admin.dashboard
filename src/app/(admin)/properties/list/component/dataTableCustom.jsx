@@ -1,16 +1,24 @@
 "use client"
 import DataTable from "@/components/dataTable/dataTable"
 function DataTableCustom({data}) {
-  const bufferToString = (buffer) => {
-    return new TextDecoder().decode(new Uint8Array(buffer));
-};   const columns = [
+
+ const columns = [
   { accessorKey: "id", header: "ID" },
-  // {
-  //   accessorKey: "file",
-  //   header: "Photo",
-  //   cell: ({ row }) => (<div dangerouslySetInnerHTML={{ __html: bufferToString(row.original.file.data)}} />
-  //   ),
-  // },
+  {
+    accessorKey: "file",
+    header: "Photo",
+    cell: ({ row }) => (<img
+      src={row.original.file}
+      alt="Property"
+      style={{
+        width: 40,
+        height: 40,
+        borderRadius: "12px",
+        objectFit: "cover",
+      }}
+    />
+    ),
+  },
   { accessorKey: "name_en", header: "Name In English" },
   { accessorKey: "name_ar", header: "Name In Arabic" },
   { accessorKey: "type", header: "Type" },
@@ -46,6 +54,7 @@ function DataTableCustom({data}) {
       {row.original.furnishing ? "Yes" : "No"}
     </span>
   ), },
+  { accessorKey: "owner", header: "Owner" },
   { accessorKey: "addedBy", header: "Added By" },
   
 ];

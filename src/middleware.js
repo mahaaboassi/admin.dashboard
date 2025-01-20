@@ -7,13 +7,18 @@ export async function middleware(request) {
   const token = await  checkTokenOnServer()
 
   // Define protected and public routes
-  const protectedRoutes = ['/dashboards', '/profile']
+  const protectedRoutes = ['/dashboards', '/user/list', "/user/add",
+    "/features/list","/features/add" , "/features/addSub",
+    "/properties/list", "/properties/add"
+  ]
   const authRoutes = ['/auth/sign-in']
 
   const { pathname } = request.nextUrl
-
+  
   // Case 1: Redirect unauthenticated users from protected routes to sign-in
-  if (!token && protectedRoutes.some(route => pathname.startsWith(route))) {
+  if (!token && protectedRoutes.some(route => {
+    return pathname.startsWith(route)
+  })) {
     return NextResponse.redirect(new URL('/auth/sign-in', request.url))
   }
 

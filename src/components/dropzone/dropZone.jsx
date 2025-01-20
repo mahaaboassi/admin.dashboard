@@ -30,8 +30,9 @@ const DropzoneFormInput = ({
         onFileUpload(acceptedFiles)
         acceptedFiles[0].src = "" 
         acceptedFiles[0].preview = acceptedFiles[0]['type'].split('/')[0] === 'image' ? URL.createObjectURL(acceptedFiles[0]) : null
+        
         if(isMultiple){
-            setSelectedFiles(prev=>[...prev, acceptedFiles])
+            setSelectedFiles(prev=>[...prev, acceptedFiles[0]])
         }else{
             setSelectedFiles(acceptedFiles)
         }
@@ -51,6 +52,8 @@ const DropzoneFormInput = ({
             </div>
             {showPreview && selectedFiles.length > 0 && <div className="dz-preview mt-3">
                 {(selectedFiles || []).map((file, idx) => {
+
+                  
             const ext = file.name.substr(file.name.lastIndexOf('.') + 1);
             return <Card className="mt-1 mb-0 shadow-none border" key={idx + '-file'}>
                       <div className="p-2">
