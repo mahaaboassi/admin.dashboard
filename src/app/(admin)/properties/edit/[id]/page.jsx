@@ -1,6 +1,6 @@
 
 import React from 'react';
-import BasicExamples from './components/BasicExamples';
+import BasicExamples from '../../add/components/BasicExamples';
 import IconifyIcon from '@/components/wrapper/IconifyIcon';
 import Link from 'next/link';
 import { Col, Row } from 'react-bootstrap';
@@ -10,7 +10,8 @@ import { getTypes } from "@/lib/type/getTypes"
 export const metadata = {
   title: ' Properties '
 };
-const AddFeature = async ({searchParams}) => {
+const EditProperty = async ({searchParams, params}) => {
+  const { id } = params
   const page = parseInt(searchParams?.page) || 1;
   const limit = parseInt(searchParams?.limit) || 100;
     
@@ -45,7 +46,7 @@ const AddFeature = async ({searchParams}) => {
       <Row className='pb-4'>
         <Col xs={12}>
           <div className="page-title-box">
-            <h4 className="mb-0">Add Property</h4>
+            <h4 className="mb-0">Edit Property</h4>
             <ol className="breadcrumb mb-0">
               <li className="breadcrumb-item">
                 <Link href="">Basic Info</Link>
@@ -55,13 +56,13 @@ const AddFeature = async ({searchParams}) => {
                 }}>
                 <IconifyIcon icon="bx:chevron-right" height={16} width={16} />
               </div>
-              <li className="breadcrumb-item active">Add Property</li>
+              <li className="breadcrumb-item active">Edit Property</li>
             </ol>
           </div>
         </Col>
       </Row>
-       <BasicExamples types = {data_type} subFeatures = {data_sub_features } users = { data_users } />
+       <BasicExamples id={id} types = {data_type} subFeatures = {data_sub_features } users = { data_users } />
       
     </>;
 };
-export default AddFeature;
+export default EditProperty;

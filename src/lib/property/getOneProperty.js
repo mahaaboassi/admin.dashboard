@@ -2,17 +2,15 @@
 import { Helper } from "@/helpers/helper";
 import { apiRoutes } from "@/helpers/apiRoutes"
 
-export async function addProperties(body,id) {
-    
+export async function getOneProperty(id) {
+
     try{
         const {response,message} = await Helper({
-            url : id ? apiRoutes.property.update(id) : apiRoutes.property.addProperty,
-            method : id ? "PUT" : "POST",
-            body : body, 
-            hasToken : true
+            url : apiRoutes.property.getOne(id),
+            method : "GET",
           })
-          console.log(response);
           if(response?.error ==0 ){
+            console.log(response);
             
             return {
                 success: true,
@@ -26,7 +24,7 @@ export async function addProperties(body,id) {
               }
           }
     }catch(error){
-        
+        console.log(error);
         return {
             success: false,
             message: `An unexpected error occurred`

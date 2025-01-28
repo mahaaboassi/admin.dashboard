@@ -1,5 +1,5 @@
 export const Host = "https://backendforeshore.vercel.app/api"
-// export const Host = "http://localhost:3000"
+// export const Host = "http://localhost:5000/api"
 
 export  const apiRoutes = {
     auth : {
@@ -17,6 +17,8 @@ export  const apiRoutes = {
     property : {
         getAllProperties : `${Host}/admin/getAllProperties`,
         addProperty : `${Host}/admin/addProperty`,
+        getOne : (id) => (`${Host}/admin/getProperty/${id}`),
+        update : (id) => (`${Host}/admin/updateProperty/${id}`)
       
     },
     type : {

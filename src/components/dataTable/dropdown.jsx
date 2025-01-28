@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormSelect } from "react-bootstrap";
 
-const Dropdown = () => {
+const Dropdown = ({name}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -11,7 +11,7 @@ const Dropdown = () => {
 
   const handleChange = (event) => {
     const newLimit = event.target.value;
-    router.push(`/features/list?page=1&limit=${newLimit}`);
+    router.push(`/${name}/list?page=1&limit=${newLimit}`);
   };
 
   return (
@@ -21,7 +21,7 @@ const Dropdown = () => {
             <option value="10">10</option>
             <option value="20">20</option>
             <option value="50">50</option>
-            <option value="All">All</option>
+            <option value="10000">All</option>
         </FormSelect>
     </div>
   );

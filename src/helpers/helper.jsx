@@ -1,4 +1,5 @@
 "use server";
+import {logout}  from "@/lib/removeToken"
 import { cookies } from "next/headers";
 const getToken = () => {
     const cookieStore = cookies();
@@ -55,6 +56,7 @@ export const  Helper =  async ({url, body , method ,signal, hasToken=false , par
                 case 400:
                     return { message: res.message,statusCode : 400};
                 case 401:
+                 await logout()
                     return { message: res.message ,statusCode : 401};
                 case 404:
                     if(res.message == "you have to login before"){

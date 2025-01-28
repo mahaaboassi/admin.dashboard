@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 import { useRouter } from 'next/navigation';
 import { Row,Card, CardBody, CardHeader, CardTitle, Col,Button,  Form, FormCheck, FormControl, FormGroup, FormLabel} from 'react-bootstrap';
 import Feedback from 'react-bootstrap/esm/Feedback';
@@ -8,16 +8,17 @@ import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
 import  DropzoneFormInput from '@/components/dropzone/DropzoneFormInput';
 import { addProperties } from "@/lib/property/addProperties"
+import { getOneProperty } from "@/lib/property/getOneProperty"
 
 
-
-const BasicExamples = ({types, users , subFeatures}) => {
+const BasicExamples = ({types, users , subFeatures,id , key }) => {
   const bufferToString = (buffer) => {
-    return new TextDecoder().decode(new Uint8Array(buffer));
-};  
-
+      return new TextDecoder().decode(new Uint8Array(buffer));
+  };  
+  const router = useRouter();
 
   const [error, setError] = useState(null);
+  const [loadingFetchingData , setLoadingFetchingData] = useState(false)
   const route = useRouter()
   const [values, setValues]= useState({
     name_en : "",
@@ -43,6 +44,7 @@ const BasicExamples = ({types, users , subFeatures}) => {
       subFeatures : []
     }],
     link_map : "",
+    rms_link : "",
     registration_number : ""
   })
   const [temp, setTemp] = useState([])
@@ -50,6 +52,63 @@ const BasicExamples = ({types, users , subFeatures}) => {
   const handleChange = (key, value) =>{
       setValues(prev=>({...prev,[key]:value}))
   }
+  useEffect(() => {
+      const fetchData = async () => {
+        setLoadingFetchingData(true);
+
+        try {
+          const result = await getOneProperty(id);
+          if (!result.success) {
+            // Handle error (you can set an error state and show it)
+            console.error("Error fetching data:", result.message);
+          } else {
+            const response = result.data.data
+            setValues({
+              name_en :  response.name_en || "",
+              name_ar : response.name_ar || "",
+              description_ar : response.description_ar || "",
+              description_en : response.description_en || "",
+              type : response.type._id || null,
+              owner : response.owner.id || null,
+              furnishing : response.furnishing || undefined,
+              ready : response.ready || undefined,
+              bathrooms : response.bathrooms || undefined,
+              bedrooms : response.bedrooms || undefined,
+              beds : response.beds || undefined,
+              guests : response.guests || undefined,
+              city :  response.city || "",
+              region : response.region || "",
+              street : response.street || "",
+              floor : response.floor || "",
+              building : response.building || "",
+              files : [] ,
+              features : [ {
+                id : "",
+                subFeatures : []
+              }],
+              rms_link : response.rms_link || "",
+              link_map : response.link_map || "",
+              registration_number : response.registration_number || ""
+            })
+            const valuesForTemp = []
+            result.data.data.features.forEach(ele=>{
+              ele.subFeatures.forEach(child=>{
+                const existValue = subFeatures.find(el=> el._id == child.id)
+                if(existValue) valuesForTemp.push(existValue)
+              })
+              
+            })
+            setTemp(valuesForTemp)
+          }
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setLoadingFetchingData(false);
+        }
+      };
+      if(id) fetchData();
+    }, [id]); // Re-fetch when page or limit changes
+  
   const [validated, setValidated] = useState(false);
   const handleSubmit = async (event) => {
     const form = event.currentTarget;
@@ -76,8 +135,8 @@ const BasicExamples = ({types, users , subFeatures}) => {
       if(values.owner  && values.type){
         if(validationNumberPositive(values.bathrooms) && validationNumberPositive(values.bedrooms) && validationNumberPositive(values.beds) && validationNumberPositive(values.guests)){
             if(values.city != "" && values.region !="" && values.street != '' && values.link_map != "" && values.building != "" && values.floor != ''){
-                if(values.registration_number != ""){
-                    if(values.files.length>0){
+                if(values.registration_number != "" && values.rms_link != ""){
+                    if(id || values.files.length>0){
                       setLoading(true);
                       setError(null);
                       const formData = new FormData()
@@ -100,10 +159,13 @@ const BasicExamples = ({types, users , subFeatures}) => {
                       formData.append("street", values.street);
                       formData.append("floor", values.floor);
                       formData.append("link_map", values.link_map);
+                      formData.append("rms_link", values.rms_link);
                       formData.append("registration_number", values.registration_number);
-                      values.files.forEach((ele)=>{
-                        formData.append("files", ele); // Send file properly
-                      })
+                      if(values.files.length >0 ) {
+                        values.files.forEach((ele)=>{
+                          formData.append("files", ele); // Send file properly
+                        })
+                      }
                      
                      const finalFeauterstoSend = []
                      const parents = []
@@ -135,13 +197,16 @@ const BasicExamples = ({types, users , subFeatures}) => {
                       })
                     })
                       try {
-                        const result = await addProperties(formData)
-                        console.log(result);
+                        const result = await addProperties(formData, id || undefined)
                         
                         if(result && result.success){
                             route.push("/properties/list")
                         } else{
                           setError(result.message)
+                          if(result.message == "Token has expired."){
+                            router.push("/auth/sign-in"); 
+                          }
+                          
                         }
                        
                       } catch (error) {
@@ -154,7 +219,7 @@ const BasicExamples = ({types, users , subFeatures}) => {
                       setError("File Field is required !")
                     }
                 }else{
-                  setError("Registeration number Field is required !")
+                  setError("Registeration number, RMS Links Fields are required !")
                 }
             }else{
               setError("City, Region, Street, Building, Link Map and Floor Fields are required !")
@@ -208,13 +273,14 @@ const BasicExamples = ({types, users , subFeatures}) => {
     
   }
     
-  return  <Form className="row g-3 needs-validation" noValidate validated={validated} onSubmit={handleSubmit}>
+  return  loadingFetchingData ?"Loading":<Form className="row g-3 needs-validation" noValidate validated={validated} onSubmit={handleSubmit}>
       <Row className="row-cols-sm-1 row-cols-md-1 row-cols-lg-2 gx-3">
         <Col>
           <Card>
             <CardHeader>
-              <CardTitle as={'h5'}>English Information</CardTitle>
-              <p className="card-subtitle">
+              <CardTitle  as={'h5'}>English Information</CardTitle>
+              <p onClick={()=>{console.log(temp);
+              }} className="card-subtitle">
                 Please insert English Information.
               </p>
             </CardHeader>
@@ -239,7 +305,7 @@ const BasicExamples = ({types, users , subFeatures}) => {
                            minHeight: 300,
                            maxHeight : 300,
                            overflowY: "auto"
-                      }} onChange={(e)=>handleChange("description_en",e)}  modules={modules} defaultValue={values.description_en}  theme="snow" />
+                      }} onChange={(e)=>handleChange("description_en",e)}  modules={modules} value={values.description_en}  theme="snow" />
                       </div>
                     </CardBody>
                   </Card>
@@ -277,7 +343,7 @@ const BasicExamples = ({types, users , subFeatures}) => {
                         minHeight: 300,
                         maxHeight : 300,
                         overflowY: "auto"
-                      }} onChange={(e)=>handleChange("description_ar",e)} id="snow-editor" modules={modules} defaultValue={values.description_ar} theme="snow" />
+                      }} onChange={(e)=>handleChange("description_ar",e)} id="snow-editor" modules={modules} value={values.description_ar} theme="snow" />
                     </div>
                   </CardBody>
                 </Card>
@@ -424,7 +490,19 @@ const BasicExamples = ({types, users , subFeatures}) => {
                   <div className="mb-3">
                     <FormGroup className="">
                       <FormLabel>Registeration Number</FormLabel>
-                      <FormControl value={values.registration_number} onChange={(e)=>handleChange("registration_number",e.target.value)} type="text" id="validationCustom01" placeholder="Registeration Number<"  required />
+                      <FormControl value={values.registration_number} onChange={(e)=>handleChange("registration_number",e.target.value)} type="text" id="validationCustom01" placeholder="Registeration Number"  required />
+                      <Feedback>Looks good!</Feedback>
+                    </FormGroup>
+                  
+                </div>
+          
+
+              </Row>
+              <Row>
+                  <div className="mb-3">
+                    <FormGroup className="">
+                      <FormLabel>RMS Link</FormLabel>
+                      <FormControl value={values.rms_link} onChange={(e)=>handleChange("rms_link",e.target.value)} type="text" id="validationCustom01" placeholder="RMS Link"  required />
                       <Feedback>Looks good!</Feedback>
                     </FormGroup>
                   
@@ -613,7 +691,7 @@ const BasicExamples = ({types, users , subFeatures}) => {
         <Row className='d-flex justify-content-center '>
                 
               <Button disabled={loading} className='w-50' variant="primary" type="submit">
-                {loading ? "Loading" : "Submit Form"}
+                {loading ? "Loading" : id? "Save update":"Submit Form"}
               </Button>
         </Row>
      </Form>

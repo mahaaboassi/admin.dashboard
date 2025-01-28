@@ -5,7 +5,7 @@ import IconifyIcon from "@/components/wrapper/IconifyIcon";
 import Dropdown  from "./dropdown";
 
 
-const Pagination = ({ meta }) => {
+const Pagination = ({ meta,name }) => {
   const currentPage = parseInt(meta.current_page);
   const lastPage = parseInt(meta.last_page);
   return (
@@ -16,13 +16,13 @@ const Pagination = ({ meta }) => {
       <Col className="flex">
     
       <nav style={{display:"flex",alignItems:"center",gap:"5px",justifyContent:"end"}} aria-label="Page flex navigation example">
-         <Dropdown/>
+         <Dropdown name={name}/>
         <ul className="pagination mb-0">
           {/* First Button */}
           <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
             <Link
               className="page-link"
-              href={`/features/list?page=1`}
+              href={`/${name}/list?page=1`}
               aria-label="Previous"
             >
               <span aria-hidden="true">«</span>
@@ -32,7 +32,7 @@ const Pagination = ({ meta }) => {
           <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
             <Link
               className="page-link"
-              href={`/features/list?page=${currentPage - 1}`}
+              href={`/${name}/list?page=${currentPage - 1}`}
               aria-label="Previous"
             >
               <span aria-hidden="true">
@@ -44,7 +44,7 @@ const Pagination = ({ meta }) => {
           {/* First Page */}
           {currentPage > 2 && (
             <li className="page-item">
-              <Link className="page-link" href={`/features/list?page=1`}>
+              <Link className="page-link" href={`/${name}/list?page=1`}>
                 1
               </Link>
             </li>
@@ -53,7 +53,7 @@ const Pagination = ({ meta }) => {
           {/* Previous Page (if not first) */}
           {currentPage > 2 && (
             <li className="page-item">
-              <Link className="page-link" href={`/features/list?page=${currentPage - 1}`}>
+              <Link className="page-link" href={`/${name}/list?page=${currentPage - 1}`}>
                 {currentPage - 1}
               </Link>
             </li>
@@ -67,7 +67,7 @@ const Pagination = ({ meta }) => {
           {/* Next Page (if not last) */}
           {currentPage < lastPage - 1 && (
             <li className="page-item">
-              <Link className="page-link" href={`/features/list?page=${currentPage + 1}`}>
+              <Link className="page-link" href={`/${name}/list?page=${currentPage + 1}`}>
                 {currentPage + 1}
               </Link>
             </li>
@@ -76,7 +76,7 @@ const Pagination = ({ meta }) => {
           {/* Last Page */}
           {currentPage < lastPage - 1 && (
             <li className="page-item">
-              <Link className="page-link" href={`/features/list?page=${lastPage}`}>
+              <Link className="page-link" href={`/${name}/list?page=${lastPage}`}>
                 {lastPage}
               </Link>
             </li>
@@ -86,7 +86,7 @@ const Pagination = ({ meta }) => {
           <li className={`page-item ${currentPage === lastPage ? "disabled" : ""}`}>
             <Link
               className="page-link"
-              href={`/features/list?page=${currentPage + 1}`}
+              href={`/${name}/list?page=${currentPage + 1}`}
               aria-label="Next"
             >
               <span aria-hidden="true">
@@ -98,7 +98,7 @@ const Pagination = ({ meta }) => {
           <li className={`page-item ${currentPage === lastPage ? "disabled" : ""}`}>
             <Link
               className="page-link"
-              href={`/features/list?page=${lastPage}`}
+              href={`/${name}/list?page=${lastPage}`}
               aria-label="Previous"
             >
               <span aria-hidden="true">»</span>
