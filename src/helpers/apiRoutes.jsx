@@ -6,7 +6,7 @@ export  const apiRoutes = {
         signIn : `${Host}/auth/signIn`,
     },
     user : {
-        getAllUsers : `${Host}/admin/getAllUsers`,
+        getAllUsers : `${Host}/admin/getAllUsers` ,
     },
     feature : {
         getAllfeatures : `${Host}/admin/getAllFeatures`,
